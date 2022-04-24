@@ -26,5 +26,5 @@ yarn dev
 
 ### Build the app for production
 ```bash
-quasar build
+yarn build
 ```
