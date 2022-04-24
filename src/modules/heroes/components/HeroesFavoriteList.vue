@@ -6,7 +6,7 @@
       row-key="id"
       hide-header
       :rows-per-page-options="[5, 10, 15, 20]"
-      v-model:pagination="pagination"
+      :pagination="pagination"
       card-container-style="justify-content: center"
     >
     <template v-slot:item="props">
@@ -30,29 +30,27 @@
 </template>
 
 <script lang="ts">
-// import { useStore } from 'src/store'
 import { LocalStorage } from 'quasar'
 import { defineComponent, ref } from 'vue'
 
+import { HeroInterface } from '../../../interfaces/heroes/Heroes'
+
 interface PaginationInterface {
   page: number
-  rowsNumber: number
   rowsPerPage: number
 }
 
 export default defineComponent({
   name: 'HeroesFavoriteList',
   setup () {
-    // const store = useStore()
     const loading = ref<boolean>(false)
+
+    const rows = ref<string | Array<HeroInterface>>(LocalStorage.getItem('favoriteHeroes') || [])
 
     const pagination = ref<PaginationInterface>({
       page: 1,
-      rowsPerPage: 5,
-      rowsNumber: 5
+      rowsPerPage: 5
     })
-
-    const rows = ref(LocalStorage.getItem('favoriteHeroes') || [])
 
     return {
       loading,

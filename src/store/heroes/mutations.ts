@@ -12,7 +12,9 @@ const mutation: MutationTree<HeroesStoreInterface> = {
     state.heroDetail = heroDetail
   },
   setHeroInFavorites (state: HeroesStoreInterface, hero: HeroInterface) {
-    state.favoritesHeroes.push(hero)
+    const heroList: Array<HeroInterface> = LocalStorage.getItem('favoriteHeroes') || []
+    heroList.push(hero)
+    state.favoritesHeroes = heroList
     LocalStorage.set('favoriteHeroes', state.favoritesHeroes)
   },
   deleteHeroFromFavorites (state: HeroesStoreInterface, id: number) {
